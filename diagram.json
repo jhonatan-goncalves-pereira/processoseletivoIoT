@@ -1,27 +1,27 @@
 {
   "version": 1,
-  "author": "Jhonatan Pereira",
+  "author": "Jhonatan Gonçalves Pereira",
   "editor": "wokwi",
   "parts": [
     { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
-    { "type": "led", "id": "led1", "top": -80, "left": 130, "attrs": { "color": "green" } },
-    { "type": "led", "id": "led2", "top": -10, "left": 130, "attrs": { "color": "yellow" } },
-    { "type": "led", "id": "led3", "top": 60, "left": 130, "attrs": { "color": "red" } },
-    { "type": "r", "id": "r1", "top": -80, "left": 230, "attrs": { "resistance": "220" } },
-    { "type": "r", "id": "r2", "top": -10, "left": 230, "attrs": { "resistance": "220" } },
-    { "type": "r", "id": "r3", "top": 60, "left": 230, "attrs": { "resistance": "220" } }
+    { "type": "wokwi-led", "id": "led_verde",    "top": -100, "left": 200, "attrs": { "color": "green"  } },
+    { "type": "wokwi-led", "id": "led_amarelo",  "top":    0, "left": 200, "attrs": { "color": "yellow" } },
+    { "type": "wokwi-led", "id": "led_vermelho", "top":  100, "left": 200, "attrs": { "color": "red"    } },
+    { "type": "wokwi-resistor", "id": "r1", "top": -100, "left": 320, "attrs": { "resistance": "220" } },
+    { "type": "wokwi-resistor", "id": "r2", "top":    0, "left": 320, "attrs": { "resistance": "220" } },
+    { "type": "wokwi-resistor", "id": "r3", "top":  100, "left": 320, "attrs": { "resistance": "220" } }
   ],
   "connections": [
     [ "esp:TX", "$serialMonitor:RX", "", [] ],
     [ "esp:RX", "$serialMonitor:TX", "", [] ],
-    [ "esp:26", "led1:A", "green", [] ],
-    [ "led1:C", "r1:1", "", [] ],
-    [ "r1:2", "esp:GND.1", "", [] ],
-    [ "esp:25", "led2:A", "yellow", [] ],
-    [ "led2:C", "r2:1", "", [] ],
-    [ "r2:2", "esp:GND.1", "", [] ],
-    [ "esp:33", "led3:A", "red", [] ],
-    [ "led3:C", "r3:1", "", [] ],
-    [ "r3:2", "esp:GND.1", "", [] ]
+    [ "esp:26", "led_verde:A",    "green",  [] ],
+    [ "led_verde:C",    "r1:1", "green",  [] ],
+    [ "r1:2", "esp:GND.1", "black", [] ],
+    [ "esp:25", "led_amarelo:A",  "yellow", [] ],
+    [ "led_amarelo:C",  "r2:1", "yellow", [] ],
+    [ "r2:2", "esp:GND.1", "black", [] ],
+    [ "esp:33", "led_vermelho:A", "red",    [] ],
+    [ "led_vermelho:C", "r3:1", "red",    [] ],
+    [ "r3:2", "esp:GND.1", "black", [] ]
   ]
 }
