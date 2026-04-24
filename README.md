@@ -244,78 +244,103 @@ Preencha todas as seções abaixo de forma **clara, objetiva e técnica**.
 
 ### 👤 Identificação do Candidato
 
-- **Nome completo:**  
-- **GitHub:**  
+- **Nome completo:** Jhonatan Gonçalves Pereira
+- **GitHub:** https://github.com/jhonatan-goncalves-pereira
 
 ---
 
 ## 1️⃣ Visão Geral da Solução
 
-Descreva, em poucas palavras:
+- Qual é o objetivo do projeto  ?
+O projeto implementa um **semáforo de trânsito simulado** utilizando um microcontrolador ESP32 e três LEDs (verde, amarelo e vermelho).
 
-- Qual é o objetivo do seu projeto  
 - O que o sistema embarcado simulado faz  
+O sistema embarcado controla o ciclo completo de um semáforo de forma autônoma, alternando entre os estados de passagem liberada (verde), atenção (amarelo) e parada obrigatória (vermelho), com temporização definida por software.
+
 - Como o usuário interage com ele (se aplicável)
+Não há interação direta do usuário — o ciclo ocorre de forma contínua e automática, sendo monitorável via Serial Monitor.
 
 ---
 
 ## 2️⃣ Arquitetura do Sistema Embarcado
 
-Explique a arquitetura lógica do seu projeto, abordando:
+**Fluxo principal (`main.py`):**
 
-- Fluxo principal do programa (`main.py`)  
-- Estrutura de estados, loops ou temporizações  
-- Como os componentes interagem entre si  
+O programa inicia configurando os pinos GPIO 26, 25 e 33 como saídas digitais, correspondendo respectivamente aos LEDs verde, amarelo e vermelho. Em seguida, entra em um laço infinito (`while True`) que executa o ciclo do semáforo continuamente.
 
-Se desejar, utilize tópicos ou um pequeno diagrama em texto.
+**Estrutura de estados e temporização:**
+[VERDE - 3s] → [AMARELO - 1s] → [VERMELHO - 3s] → (repete)
+
+Cada estado é composto por três operações sequenciais:
+1. Apagar todos os LEDs (`apagar_todos()`)
+2. Acionar o LED correspondente ao estado atual
+3. Aguardar o tempo definido com `time.sleep()`
+
+**Interação entre componentes:**
+
+O ESP32 envia sinais digitais aos pinos GPIO, que acionam os LEDs através de resistores de 220Ω. A saída serial registra cada transição de estado, permitindo rastreamento em tempo real via Serial Monitor no Wokwi.
 
 ---
 
 ## 3️⃣ Componentes Utilizados na Simulação
 
-Liste os principais componentes definidos no `diagram.json`, por exemplo:
+| Componente | Quantidade | Função |
+|---|---|---|
+| ESP32 DevKit C v4 | 1 | Microcontrolador principal, executa o firmware MicroPython |
+| LED Verde | 1 | Sinalização de passagem liberada (GPIO 26) |
+| LED Amarelo | 1 | Sinalização de atenção (GPIO 25) |
+| LED Vermelho | 1 | Sinalização de parada obrigatória (GPIO 33) |
+| Resistor 220Ω | 3 | Limitação de corrente dos LEDs |
 
-- Tipo de placa utilizada  
-- LEDs, botões, sensores, atuadores, etc.  
-- Função de cada componente no sistema  
+Todos os componentes foram definidos e conectados no arquivo `diagram.json`, com fios coloridos identificando cada trilha do circuito.
 
 ---
 
 ## 4️⃣ Decisões Técnicas Relevantes
 
-Explique brevemente decisões importantes tomadas durante o desenvolvimento, como:
+**Uso de função auxiliar `apagar_todos()`:**  
+Centraliza o desligamento dos três LEDs em uma única chamada, evitando repetição de código e garantindo que nunca haja dois LEDs acesos simultaneamente — o que seria fisicamente incorreto em um semáforo real.
 
-- Organização do código  
-- Uso de funções, estados ou constantes  
-- Estratégias para temporização ou controle lógico  
+**Pinos GPIO escolhidos (26, 25, 33):**  
+São pinos de uso geral disponíveis no ESP32 DevKit C v4, sem conflito com funções reservadas (como pinos de boot ou UART), garantindo compatibilidade com a simulação no Wokwi.
+
+**Resistores de 220Ω:**  
+Valor padrão para operação segura de LEDs com alimentação de 3.3V do ESP32, respeitando a corrente máxima suportada pelos pinos GPIO.
+
+**Saída serial como feedback:**  
+Cada transição de estado é registrada via `print()`, o que permite validação do fluxo lógico diretamente no Serial Monitor, além de servir como base para o teste automatizado do GitHub Actions.
+
+**Ambiente de execução — Opção A (Python local com pip):**  
+O desenvolvimento foi realizado em ambiente Windows institucional (URCA), sem Docker Desktop instalado e sem permissões administrativas para instalação de software de virtualização. A Opção A com `pip install -r requirements.txt` foi escolhida por ser compatível com o ambiente disponível, não exigir configuração adicional de runtime e atender plenamente aos requisitos do projeto.
 
 ---
 
 ## 5️⃣ Resultados Obtidos
 
-Descreva o comportamento final do sistema:
+O sistema opera corretamente na simulação do Wokwi, executando o ciclo completo do semáforo de forma contínua:
 
-- O que funciona corretamente  
-- Quais requisitos foram atendidos  
-- Resultado observado na simulação do Wokwi  
+- LED verde acende por 3 segundos com mensagem `VERDE - Passagem liberada`
+- LED amarelo acende por 1 segundo com mensagem `AMARELO - Atencao`
+- LED vermelho acende por 3 segundos com mensagem `VERMELHO - Pare`
+- Apenas um LED permanece aceso por vez em todos os estados
+- A saída serial exibe `Teste` na inicialização, atendendo ao critério de validação do GitHub Actions
+
+O pipeline de CI executou sem falhas, confirmando build do filesystem, geração do `fs.bin` e execução da simulação com texto esperado detectado.
 
 ---
 
-## 6️⃣ Comentários Adicionais (Opcional)
+## 6️⃣ Comentários Adicionais
 
-Utilize este espaço para comentar, se desejar:
+**Principal aprendizado:**  
+A integração entre MicroPython, Wokwi e GitHub Actions demonstra como pipelines de CI/CD podem ser aplicados em contextos de sistemas embarcados — aproximando práticas de desenvolvimento de software tradicional do universo de IoT e firmware.
 
-- Dificuldades encontradas  
-- Limitações da solução  
-- Melhorias que você faria com mais tempo  
-- Principais aprendizados durante o desafio  
+**Melhoria com mais tempo:**  
+Adicionaria um botão físico para permitir ao usuário forçar a transição de estados manualmente, além de um sensor de luminosidade para ajustar automaticamente o tempo de cada fase conforme o horário do dia — aproximando o projeto de uma aplicação real de controle de tráfego.
 
 ---
 
 > ✅ Este relatório faz parte da avaliação técnica.  
 > Clareza, objetividade e organização são tão importantes quanto o funcionamento do código.
-
----
 
 ## 🆘 Suporte
 
