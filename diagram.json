@@ -7,9 +7,9 @@
     { "type": "wokwi-led", "id": "led_verde",    "top": -100, "left": 200, "attrs": { "color": "green"  } },
     { "type": "wokwi-led", "id": "led_amarelo",  "top":    0, "left": 200, "attrs": { "color": "yellow" } },
     { "type": "wokwi-led", "id": "led_vermelho", "top":  100, "left": 200, "attrs": { "color": "red"    } },
-    { "type": "wokwi-resistor", "id": "r1", "top": -100, "left": 320, "attrs": { "resistance": "220" } },
-    { "type": "wokwi-resistor", "id": "r2", "top":    0, "left": 320, "attrs": { "resistance": "220" } },
-    { "type": "wokwi-resistor", "id": "r3", "top":  100, "left": 320, "attrs": { "resistance": "220" } }
+    { "type": "wokwi-resistor", "id": "r1", "top": -100, "left": 320, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r2", "top":    0, "left": 320, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r3", "top":  100, "left": 320, "attrs": { "value": "220" } }
   ],
   "connections": [
     [ "esp:TX", "$serialMonitor:RX", "", [] ],
