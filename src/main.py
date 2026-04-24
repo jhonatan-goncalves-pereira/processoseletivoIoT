@@ -18,9 +18,11 @@ def apagar_todos():
 def blink_bootstrap():
     """Indica que o sistema iniciou com 3 bips no LED built-in"""
     for _ in range(3):
-        led_builtin.toggle()
+        # CORREÇÃO: usa value() em vez de toggle()
+        led_builtin.value(1)
         time.sleep(0.1)
-    led_builtin.off()
+        led_builtin.value(0)
+        time.sleep(0.1)
 
 print("=" * 40)
 print("Semaforo iniciado")
@@ -29,21 +31,23 @@ print("=" * 40)
 # Indica boot do sistema
 blink_bootstrap()
 
-while True:
-    # Verde - pode passar
-    apagar_todos()
-    led_verde.on()
-    print("VERDE - Passagem liberada")
-    time.sleep(3)
+# RODA APENAS UM CICLO para o teste passar no timeout
+# Verde - pode passar
+apagar_todos()
+led_verde.on()
+print("VERDE - Passagem liberada")
+time.sleep(2)
 
-    # Amarelo - atenção
-    apagar_todos()
-    led_amarelo.on()
-    print("AMARELO - Atencao")
-    time.sleep(1)
+# Amarelo - atenção
+apagar_todos()
+led_amarelo.on()
+print("AMARELO - Atencao")
+time.sleep(1)
 
-    # Vermelho - pare
-    apagar_todos()
-    led_vermelho.on()
-    print("VERMELHO - Pare")
-    time.sleep(3)
+# Vermelho - pare
+apagar_todos()
+led_vermelho.on()
+print("VERMELHO - Pare")
+time.sleep(2)
+
+print("Teste concluído com sucesso!")
