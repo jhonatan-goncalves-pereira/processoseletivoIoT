@@ -1,6 +1,6 @@
-# SEMAFORO iot - eaquina de estados com temporização não bloqueante
+# SEMAFORO IoT - maquina de estados com temporizacao nao bloqueante
 # placa: ESP32 DevKit C v4 | Framework: MicroPython
-# autor: Jhonatan Gonçalves Pereira
+# autor: Jhonatan Goncalves Pereira
 
 from machine import Pin
 import time
@@ -16,7 +16,7 @@ DURACAO_MS = {
     VERMELHO: 3000,
 }
 
-# para saida serial 
+# para saida serial
 LABELS = {
     VERDE:    "VERDE - Passagem liberada",
     AMARELO:  "AMARELO - Atencao",
@@ -37,7 +37,7 @@ LEDS = {
 
 # defs auxiliares
 def apagar_todos():
-    """desliga todos os LEDs do semáforo simultaneamente"""
+    """desliga todos os LEDs do semaforo simultaneamente"""
     for led in LEDS.values():
         led.off()
 
@@ -48,30 +48,28 @@ def ativar_estado(estado):
     print(LABELS[estado])
 
 def blink_bootstrap(n=3):
-    """pisca o LED built-in n vezes para sinalizar inicialização do sistema"""
+    """pisca o LED built-in n vezes para sinalizar inicializacao do sistema"""
     for _ in range(n):
         led_builtin.value(1)
         time.sleep_ms(100)
         led_builtin.value(0)
         time.sleep_ms(100)
 
-#  boot
+# boot
 print("Teste")
 print("=" * 40)
 print("Semaforo iniciado")
 print("=" * 40)
 blink_bootstrap()
 
-# --- maquinas de estados principal (temporização não-bloqueante) ---
-# usando time.ticks_ms() + time.ticks_diff() para não bloquear a CPU
+# --- maquina de estados principal (temporizacao nao-bloqueante) ---
+# usando time.ticks_ms() + time.ticks_diff() para nao bloquear a CPU
 estado_atual = VERDE
 ultimo_tick  = time.ticks_ms()
-MAX_CICLOS   = 1  
-ciclos       = 0
 
 ativar_estado(estado_atual)
 
-while ciclos < MAX_CICLOS:
+while True:
     agora     = time.ticks_ms()
     decorrido = time.ticks_diff(agora, ultimo_tick)
 
@@ -80,9 +78,4 @@ while ciclos < MAX_CICLOS:
         ultimo_tick  = time.ticks_ms()
         ativar_estado(estado_atual)
 
-        # contando o ciclo completo ao voltar ao verde
-        if estado_atual == VERDE:
-            ciclos += 1
-
-apagar_todos()
-print("Teste concluido com sucesso!")
+    time.sleep_ms(10)
