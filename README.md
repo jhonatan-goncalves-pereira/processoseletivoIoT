@@ -1,8 +1,10 @@
 # Processo Seletivo – Intensivo Maker | IoT
-## Etapa Prática – Sistemas Embarcados
 
-Bem-vindo(a) à **etapa prática do processo seletivo para o Intensivo Maker | IoT**.
+<details>
+<summary><strong> SETUP da Etapa Prática – Sistemas Embarcados PROPOSTA pelo PNAAT(DropDown ⬇)</strong></summary>
+<br>
 
+ Bem-vindo(a) à **etapa prática do processo seletivo para o Intensivo Maker | IoT**.
 Esta atividade tem como objetivo avaliar suas competências em **Sistemas Embarcados**, com foco em **organização de projeto, lógica de firmware e simulação de hardware**, a partir da aplicação prática dos conhecimentos adquiridos nos cursos EAD da etapa anterior.
 
 > 🎯 **Objetivo principal**  
@@ -10,12 +12,12 @@ Esta atividade tem como objetivo avaliar suas competências em **Sistemas Embarc
 
 ---
 
-## 🏁 Passo 0 – Antes de Tudo
+<details>
+<summary><strong> ## 🏁 Passo 0 – Antes de Tudo</strong></summary>
+<br>
 
 Se você **nunca utilizou Git ou GitHub**, não se preocupe.  
 Siga atentamente os passos abaixo — eles fazem parte do processo de aprendizagem esperado.
-
----
 
 ### 1️⃣ Criação de Conta no GitHub
 
@@ -45,8 +47,12 @@ Verifique se o Git já está instalado:
 git --version
 ```
 > Caso não esteja, instale pelo gerenciador de pacotes do seu sistema.
+</details>
 
-## ⚙ Passo 1 – Preparando o Ambiente
+<details>
+<summary><strong> ## ⚙ Passo 1 – Preparando o Ambiente</strong></summary>
+<br>
+
 
 Para desenvolver o desafio, você deverá criar uma cópia deste repositório no seu GitHub.
 
@@ -110,7 +116,12 @@ Este repositório inclui um Dev Container, garantindo um ambiente padronizado.
 
 > ➡️ Todas as dependências serão instaladas automaticamente.
 
-## 🔐 Passo 2 – Criando sua API Key do Wokwi
+</details>
+
+<details>
+<summary><strong> ## 🔐 Passo 2 – Criando sua API Key do Wokwi</strong></summary>
+<br>
+
 
 A simulação do projeto será executada automaticamente via GitHub Actions, utilizando o Wokwi CLI.
 
@@ -124,8 +135,12 @@ Para isso, você precisa gerar uma API Key.
 >⚠️ Importante
 - Nunca faça commit dessa chave
 - Ela deve ser armazenada apenas como secret no GitHub
+</details>
 
-## 🔒 Passo 3 – Configurando a API Key no GitHub (Secrets)
+<details>
+<summary><strong> ## 🔒 Passo 3 – Configurando a API Key no GitHub (Secrets)</strong></summary>
+<br>
+
 
 **No repositório do seu Fork:**
 
@@ -137,8 +152,12 @@ Para isso, você precisa gerar uma API Key.
 6. Salve
 
 > ✔️ As GitHub Actions do template já estão preparadas para usar essa variável automaticamente.
+</details>
 
-## 🧠 Passo 4 – Desafio Técnico
+<details>
+<summary><strong> ## 🧠 Passo 4 – Desafio Técnico</strong></summary>
+<br>
+
 
 Você deverá desenvolver um projeto de sistemas embarcados simulados, utilizando Python e Wokwi.
 
@@ -227,6 +246,23 @@ Após concluir o desenvolvimento:
 
 📤 Envie o link conforme as orientações do processo seletivo na plataforma **Moodle**.
 
+> ✅ Este relatório faz parte da avaliação técnica.  
+> Clareza, objetividade e organização são tão importantes quanto o funcionamento do código.
+
+## 🆘 Suporte
+
+Em caso de dúvidas:
+
+- Consulte o material dos cursos EAD
+- Leia atentamente este README
+- Analise os logs das GitHub Actions
+- Utilize os canais oficiais para contato com os instrutores
+
+Boa sorte no processo seletivo.
+Mostre sua capacidade de pensar como um engenheiro de sistemas embarcados.
+****
+</details>
+
 ---
 
 ## 📝 Relatório do Candidato
@@ -241,6 +277,20 @@ Preencha todas as seções abaixo de forma **clara, objetiva e técnica**.
 > O principal critério é demonstrar **clareza nas decisões técnicas**, organização e entendimento do sistema embarcado desenvolvido.
 
 ---
+
+</details>
+
+
+## 📑 Sumário
+- [👤 Identificação](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-identificação-do-candidato)
+- [1️⃣ Visão Geral](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#1️⃣-visão-geral-da-solução)
+- [2️⃣ Arquitetura](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#2️⃣-arquitetura-do-sistema-embarcado)
+- [3️⃣ Componentes](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#3️⃣-componentes-utilizados-na-simulação)
+- [4️⃣ Decisões Técnicas](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#4️⃣-decisões-técnicas-relevantes)
+- [5️⃣ Versionamento](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#5️⃣-estratégia-de-branches-e-versionamento)
+- [6️⃣ Resultados](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#6️⃣-resultados-obtidos)
+- [7️⃣ Melhorias](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#7️⃣-limitações-e-melhorias-futuras)
+
 
 ### 👤 Identificação do Candidato
 
@@ -261,8 +311,8 @@ O sistema embarcado controla o ciclo completo de um semáforo de forma autônoma
 Não há interação direta do usuário — o ciclo ocorre de forma contínua e automática, sendo monitorável via Serial Monitor.
 
 ---
-
-## 2️⃣ Arquitetura do Sistema Embarcado
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+## 2️⃣ Arquitetura do Sistema Embarcado 
 
 ### Padrão de Projeto: Máquina de Estados Finita (FSM)
 
@@ -299,7 +349,8 @@ if decorrido >= DURACAO_MS[estado_atual]:
 
 ---
 
-## 3️⃣ Componentes Utilizados na Simulação
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+## 3️⃣ Componentes Utilizados na Simulação   
 
 | Componente | Quantidade | Função |
 |---|---|---|
@@ -313,7 +364,8 @@ Todos os componentes foram definidos e conectados no arquivo `diagram.json`, com
 
 ---
 
-## 4️⃣ Decisões Técnicas Relevantes
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+## 4️⃣ Decisões Técnicas Relevantes 
 
 ### ✅ FSM em vez de sequência linear com delays
 **Problema**: `time.sleep()` bloqueia a CPU, impedindo leitura de sensores ou resposta a eventos externos.  
@@ -336,7 +388,7 @@ Cálculo: R = (3.3V - 2.1V) / 0.005A = 240Ω → 220Ω (valor comercial). Proteg
 Desenvolvido em Windows institucional sem Docker. `pip install -r requirements.txt` foi suficiente para o escopo do projeto.
 
 ---
-
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
 ## 5️⃣ Estratégia de Branches e Versionamento
 
 Este repositório segue uma **estratégia de branches organizada** para separar desenvolvimento de entrega:
@@ -361,8 +413,8 @@ Este repositório segue uma **estratégia de branches organizada** para separar 
 > Isso demonstra domínio de Git, permite rollback seguro e facilita a colaboração em equipe — práticas essenciais em desenvolvimento profissional de software e firmware.
 
 ---
-
-## 6️⃣ Resultados Obtidos
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+## 6️⃣ Resultados Obtidos  
 
 O sistema opera corretamente na simulação do Wokwi, executando o ciclo completo do semáforo de forma contínua:
 
@@ -381,8 +433,8 @@ O sistema opera corretamente na simulação do Wokwi, executando o ciclo complet
 - **Tamanho do código**: ~100 linhas bem estruturadas
 
 ---
-
-## 7️⃣ Limitações e Melhorias Futuras
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+## 7️⃣ Limitações e Melhorias Futuras  
 
 ### Limitações Atuais
 1. **Precisão temporal**: Loop de 10ms pode causar variação de ±1% no tempo dos estados
@@ -408,18 +460,3 @@ O sistema opera corretamente na simulação do Wokwi, executando o ciclo complet
 
 ---
 
-> ✅ Este relatório faz parte da avaliação técnica.  
-> Clareza, objetividade e organização são tão importantes quanto o funcionamento do código.
-
-## 🆘 Suporte
-
-Em caso de dúvidas:
-
-- Consulte o material dos cursos EAD
-- Leia atentamente este README
-- Analise os logs das GitHub Actions
-- Utilize os canais oficiais para contato com os instrutores
-
-Boa sorte no processo seletivo.
-Mostre sua capacidade de pensar como um engenheiro de sistemas embarcados.
-****
