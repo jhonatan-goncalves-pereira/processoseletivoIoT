@@ -1,19 +1,10 @@
 # Processo Seletivo – Intensivo Maker | IoT
 
-## 📑 Sumário
-- [👤 Identificação](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#-identifica%C3%A7%C3%A3o-do-candidato)
-- [1️⃣ Visão Geral](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#1%EF%B8%8F%E2%83%A3-vis%C3%A3o-geral-da-solu%C3%A7%C3%A3o)
-- [2️⃣ Arquitetura](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#2%EF%B8%8F%E2%83%A3-arquitetura-do-sistema-embarcado)
-- [3️⃣ Componentes](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#3%EF%B8%8F%E2%83%A3-componentes-utilizados-na-simula%C3%A7%C3%A3o)
-- [4️⃣ Decisões Técnicas](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#4%EF%B8%8F%E2%83%A3-decis%C3%B5es-t%C3%A9cnicas-relevantes)
-- [5️⃣ Versionamento](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#5%EF%B8%8F%E2%83%A3-estrat%C3%A9gia-de-branches-e-versionamento)
-- [6️⃣ Resultados](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#6%EF%B8%8F%E2%83%A3-resultados-obtidos)
-- [7️⃣ Melhorias](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#7%EF%B8%8F%E2%83%A3-limita%C3%A7%C3%B5es-e-melhorias-futuras)
-
 <details>
-<summary><strong> Detalhe da Etapa Prática – Sistemas Embarcados PROPOSTA pelo PNAAT</strong></summary>
+<summary><strong> SETUP da Etapa Prática – Sistemas Embarcados PROPOSTA pelo PNAAT(DropDown ⬇)</strong></summary>
 <br>
-Bem-vindo(a) à **etapa prática do processo seletivo para o Intensivo Maker | IoT**.
+
+ Bem-vindo(a) à **etapa prática do processo seletivo para o Intensivo Maker | IoT**.
 Esta atividade tem como objetivo avaliar suas competências em **Sistemas Embarcados**, com foco em **organização de projeto, lógica de firmware e simulação de hardware**, a partir da aplicação prática dos conhecimentos adquiridos nos cursos EAD da etapa anterior.
 
 > 🎯 **Objetivo principal**  
@@ -290,6 +281,15 @@ Preencha todas as seções abaixo de forma **clara, objetiva e técnica**.
 </details>
 
 
+## 📑 Sumário
+- [👤 Identificação](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-identificação-do-candidato)
+- [1️⃣ Visão Geral](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#1️⃣-visão-geral-da-solução)
+- [2️⃣ Arquitetura](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#2️⃣-arquitetura-do-sistema-embarcado)
+- [3️⃣ Componentes](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#3️⃣-componentes-utilizados-na-simulação)
+- [4️⃣ Decisões Técnicas](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#4️⃣-decisões-técnicas-relevantes)
+- [5️⃣ Versionamento](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#5️⃣-estratégia-de-branches-e-versionamento)
+- [6️⃣ Resultados](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#6️⃣-resultados-obtidos)
+- [7️⃣ Melhorias](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#7️⃣-limitações-e-melhorias-futuras)
 
 
 ### 👤 Identificação do Candidato
@@ -311,8 +311,8 @@ O sistema embarcado controla o ciclo completo de um semáforo de forma autônoma
 Não há interação direta do usuário — o ciclo ocorre de forma contínua e automática, sendo monitorável via Serial Monitor.
 
 ---
-
-## 2️⃣ Arquitetura do Sistema Embarcado
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+## 2️⃣ Arquitetura do Sistema Embarcado 
 
 ### Padrão de Projeto: Máquina de Estados Finita (FSM)
 
@@ -349,7 +349,8 @@ if decorrido >= DURACAO_MS[estado_atual]:
 
 ---
 
-## 3️⃣ Componentes Utilizados na Simulação
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+## 3️⃣ Componentes Utilizados na Simulação   
 
 | Componente | Quantidade | Função |
 |---|---|---|
@@ -363,7 +364,8 @@ Todos os componentes foram definidos e conectados no arquivo `diagram.json`, com
 
 ---
 
-## 4️⃣ Decisões Técnicas Relevantes
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+## 4️⃣ Decisões Técnicas Relevantes 
 
 ### ✅ FSM em vez de sequência linear com delays
 **Problema**: `time.sleep()` bloqueia a CPU, impedindo leitura de sensores ou resposta a eventos externos.  
@@ -386,7 +388,7 @@ Cálculo: R = (3.3V - 2.1V) / 0.005A = 240Ω → 220Ω (valor comercial). Proteg
 Desenvolvido em Windows institucional sem Docker. `pip install -r requirements.txt` foi suficiente para o escopo do projeto.
 
 ---
-
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
 ## 5️⃣ Estratégia de Branches e Versionamento
 
 Este repositório segue uma **estratégia de branches organizada** para separar desenvolvimento de entrega:
@@ -411,8 +413,8 @@ Este repositório segue uma **estratégia de branches organizada** para separar 
 > Isso demonstra domínio de Git, permite rollback seguro e facilita a colaboração em equipe — práticas essenciais em desenvolvimento profissional de software e firmware.
 
 ---
-
-## 6️⃣ Resultados Obtidos
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+## 6️⃣ Resultados Obtidos  
 
 O sistema opera corretamente na simulação do Wokwi, executando o ciclo completo do semáforo de forma contínua:
 
@@ -431,8 +433,8 @@ O sistema opera corretamente na simulação do Wokwi, executando o ciclo complet
 - **Tamanho do código**: ~100 linhas bem estruturadas
 
 ---
-
-## 7️⃣ Limitações e Melhorias Futuras
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+## 7️⃣ Limitações e Melhorias Futuras  
 
 ### Limitações Atuais
 1. **Precisão temporal**: Loop de 10ms pode causar variação de ±1% no tempo dos estados
