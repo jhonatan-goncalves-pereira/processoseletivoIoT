@@ -1,8 +1,19 @@
 # Processo Seletivo – Intensivo Maker | IoT
-## Etapa Prática – Sistemas Embarcados
 
+## 📑 Sumário
+- [👤 Identificação](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#-identifica%C3%A7%C3%A3o-do-candidato)
+- [1️⃣ Visão Geral](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#1%EF%B8%8F%E2%83%A3-vis%C3%A3o-geral-da-solu%C3%A7%C3%A3o)
+- [2️⃣ Arquitetura](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#2%EF%B8%8F%E2%83%A3-arquitetura-do-sistema-embarcado)
+- [3️⃣ Componentes](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#3%EF%B8%8F%E2%83%A3-componentes-utilizados-na-simula%C3%A7%C3%A3o)
+- [4️⃣ Decisões Técnicas](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#4%EF%B8%8F%E2%83%A3-decis%C3%B5es-t%C3%A9cnicas-relevantes)
+- [5️⃣ Versionamento](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#5%EF%B8%8F%E2%83%A3-estrat%C3%A9gia-de-branches-e-versionamento)
+- [6️⃣ Resultados](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#6%EF%B8%8F%E2%83%A3-resultados-obtidos)
+- [7️⃣ Melhorias](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/edit/feat/actions-build/README.md#7%EF%B8%8F%E2%83%A3-limita%C3%A7%C3%B5es-e-melhorias-futuras)
+
+<details>
+<summary><strong> Detalhe da Etapa Prática – Sistemas Embarcados PROPOSTA pelo PNAAT</strong></summary>
+<br>
 Bem-vindo(a) à **etapa prática do processo seletivo para o Intensivo Maker | IoT**.
-
 Esta atividade tem como objetivo avaliar suas competências em **Sistemas Embarcados**, com foco em **organização de projeto, lógica de firmware e simulação de hardware**, a partir da aplicação prática dos conhecimentos adquiridos nos cursos EAD da etapa anterior.
 
 > 🎯 **Objetivo principal**  
@@ -10,12 +21,12 @@ Esta atividade tem como objetivo avaliar suas competências em **Sistemas Embarc
 
 ---
 
-## 🏁 Passo 0 – Antes de Tudo
+<details>
+<summary><strong> ## 🏁 Passo 0 – Antes de Tudo</strong></summary>
+<br>
 
 Se você **nunca utilizou Git ou GitHub**, não se preocupe.  
 Siga atentamente os passos abaixo — eles fazem parte do processo de aprendizagem esperado.
-
----
 
 ### 1️⃣ Criação de Conta no GitHub
 
@@ -45,8 +56,12 @@ Verifique se o Git já está instalado:
 git --version
 ```
 > Caso não esteja, instale pelo gerenciador de pacotes do seu sistema.
+</details>
 
-## ⚙ Passo 1 – Preparando o Ambiente
+<details>
+<summary><strong> ## ⚙ Passo 1 – Preparando o Ambiente</strong></summary>
+<br>
+
 
 Para desenvolver o desafio, você deverá criar uma cópia deste repositório no seu GitHub.
 
@@ -110,7 +125,12 @@ Este repositório inclui um Dev Container, garantindo um ambiente padronizado.
 
 > ➡️ Todas as dependências serão instaladas automaticamente.
 
-## 🔐 Passo 2 – Criando sua API Key do Wokwi
+</details>
+
+<details>
+<summary><strong> ## 🔐 Passo 2 – Criando sua API Key do Wokwi</strong></summary>
+<br>
+
 
 A simulação do projeto será executada automaticamente via GitHub Actions, utilizando o Wokwi CLI.
 
@@ -124,8 +144,12 @@ Para isso, você precisa gerar uma API Key.
 >⚠️ Importante
 - Nunca faça commit dessa chave
 - Ela deve ser armazenada apenas como secret no GitHub
+</details>
 
-## 🔒 Passo 3 – Configurando a API Key no GitHub (Secrets)
+<details>
+<summary><strong> ## 🔒 Passo 3 – Configurando a API Key no GitHub (Secrets)</strong></summary>
+<br>
+
 
 **No repositório do seu Fork:**
 
@@ -137,8 +161,12 @@ Para isso, você precisa gerar uma API Key.
 6. Salve
 
 > ✔️ As GitHub Actions do template já estão preparadas para usar essa variável automaticamente.
+</details>
 
-## 🧠 Passo 4 – Desafio Técnico
+<details>
+<summary><strong> ## 🧠 Passo 4 – Desafio Técnico</strong></summary>
+<br>
+
 
 Você deverá desenvolver um projeto de sistemas embarcados simulados, utilizando Python e Wokwi.
 
@@ -227,6 +255,23 @@ Após concluir o desenvolvimento:
 
 📤 Envie o link conforme as orientações do processo seletivo na plataforma **Moodle**.
 
+> ✅ Este relatório faz parte da avaliação técnica.  
+> Clareza, objetividade e organização são tão importantes quanto o funcionamento do código.
+
+## 🆘 Suporte
+
+Em caso de dúvidas:
+
+- Consulte o material dos cursos EAD
+- Leia atentamente este README
+- Analise os logs das GitHub Actions
+- Utilize os canais oficiais para contato com os instrutores
+
+Boa sorte no processo seletivo.
+Mostre sua capacidade de pensar como um engenheiro de sistemas embarcados.
+****
+</details>
+
 ---
 
 ## 📝 Relatório do Candidato
@@ -241,6 +286,11 @@ Preencha todas as seções abaixo de forma **clara, objetiva e técnica**.
 > O principal critério é demonstrar **clareza nas decisões técnicas**, organização e entendimento do sistema embarcado desenvolvido.
 
 ---
+
+</details>
+
+
+
 
 ### 👤 Identificação do Candidato
 
@@ -408,18 +458,3 @@ O sistema opera corretamente na simulação do Wokwi, executando o ciclo complet
 
 ---
 
-> ✅ Este relatório faz parte da avaliação técnica.  
-> Clareza, objetividade e organização são tão importantes quanto o funcionamento do código.
-
-## 🆘 Suporte
-
-Em caso de dúvidas:
-
-- Consulte o material dos cursos EAD
-- Leia atentamente este README
-- Analise os logs das GitHub Actions
-- Utilize os canais oficiais para contato com os instrutores
-
-Boa sorte no processo seletivo.
-Mostre sua capacidade de pensar como um engenheiro de sistemas embarcados.
-****
