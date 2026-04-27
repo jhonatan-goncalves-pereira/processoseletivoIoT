@@ -280,183 +280,296 @@ Preencha todas as seções abaixo de forma **clara, objetiva e técnica**.
 
 </details>
 
-
 ## 📑 Sumário
-- [👤 Identificação](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-identifica%C3%A7%C3%A3o-do-candidato)
-- [1️⃣ Visão Geral](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#1%EF%B8%8F%E2%83%A3-vis%C3%A3o-geral-da-solu%C3%A7%C3%A3o)
-- [2️⃣ Arquitetura](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#2%EF%B8%8F%E2%83%A3-arquitetura-do-sistema-embarcado)
-- [3️⃣ Componentes](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#3%EF%B8%8F%E2%83%A3-componentes-utilizados-na-simula%C3%A7%C3%A3o)
-- [4️⃣ Decisões Técnicas](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#4%EF%B8%8F%E2%83%A3-decis%C3%B5es-t%C3%A9cnicas-relevantes)
-- [5️⃣ Versionamento](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#5%EF%B8%8F%E2%83%A3-estrat%C3%A9gia-de-branches-e-versionamento)
-- [6️⃣ Resultados](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#6%EF%B8%8F%E2%83%A3-resultados-obtidos)
-- [7️⃣ Melhorias](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#7%EF%B8%8F%E2%83%A3-limita%C3%A7%C3%B5es-e-melhorias-futuras)
-
-
+- [👤 Identificação](#-identificação-do-candidato)
+- [1️⃣ Visão Geral](#1️⃣-visão-geral-da-solução)
+- [2️⃣ Arquitetura](#2️⃣-arquitetura-do-sistema-embarcado)
+- [3️⃣ Componentes](#3️⃣-componentes-utilizados-na-simulação)
+- [4️⃣ Decisões Técnicas](#4️⃣-decisões-técnicas-relevantes)
+- [5️⃣ Versionamento](#5️⃣-estratégia-de-branches-e-versionamento)
+- [6️⃣ Resultados](#6️⃣-resultados-obtidos)
+- [7️⃣ Melhorias](#7️⃣-limitações-e-melhorias-futuras)
+---
+ 
 ### 👤 Identificação do Candidato
-
-- **Nome completo:** Jhonatan Gonçalves Pereira
-- **GitHub:** https://github.com/jhonatan-goncalves-pereira
-
+ 
+| Campo | Valor |
+|---|---|
+| **Nome completo** | Jhonatan Gonçalves Pereira |
+| **GitHub** | https://github.com/jhonatan-goncalves-pereira |
+| **Repositório** | https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT |
+ 
 ---
-
+ 
 ## 1️⃣ Visão Geral da Solução
-
-- **Qual é o objetivo do projeto?**  
-O projeto implementa um **semáforo de trânsito simulado** utilizando um microcontrolador ESP32 e três LEDs (verde, amarelo e vermelho).
-
-- **O que o sistema embarcado simulado faz?**  
-O sistema embarcado controla o ciclo completo de um semáforo de forma autônoma, alternando entre os estados de passagem liberada (verde), atenção (amarelo) e parada obrigatória (vermelho), com temporização definida por software.
-
-- **Como o usuário interage com ele (se aplicável)?**  
-Não há interação direta do usuário — o ciclo ocorre de forma contínua e automática, sendo monitorável via Serial Monitor.
-
+ 
+**Objetivo:** Implementar um semáforo de trânsito autônomo e simulado, utilizando ESP32 e três LEDs (verde, amarelo e vermelho), controlados por firmware MicroPython com lógica de temporização não-bloqueante.
+ 
+**O que o sistema faz:**  
+O firmware executa um ciclo contínuo de três estados (VERDE → AMARELO → VERMELHO → VERDE…), alternando os LEDs com temporização precisa e sem bloquear o processador. Um Watchdog Timer (WDT) garante que o sistema se recupere automaticamente em caso de travamento.
+ 
+**Interação do usuário:**  
+Não há interação direta. O ciclo ocorre de forma autônoma e contínua; as transições de estado são monitoráveis via Serial Monitor e validadas automaticamente pelo GitHub Actions.
+ 
+[⬆️ Voltar ao sumário](#-sumário)
+ 
 ---
-[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-sum%C3%A1rio)
-## 2️⃣ Arquitetura do Sistema Embarcado 
-
-### Padrão de Projeto: Máquina de Estados Finita (FSM)
-
-O firmware foi estruturado utilizando o padrão **Finite State Machine (FSM)**, que oferece:
-- **Não-bloqueante**: Evita `time.sleep()` que travaria a CPU, permitindo futuras expansões (leitura de sensores, comunicação MQTT, etc.)
-- **Modular**: Cada estado é auto-contido e fácil de testar isoladamente
-- **Escalável**: Novos estados ou transições podem ser adicionados sem refatorar todo o código
-
-### Fluxo de Estados
+ 
+## 2️⃣ Arquitetura do Sistema Embarcado
+ 
+### Padrão: Máquina de Estados Finita (FSM)
+ 
+O firmware adota o padrão **Finite State Machine (FSM)** não-bloqueante como arquitetura central. A escolha prioriza três propriedades de engenharia:
+ 
+| Propriedade | Benefício |
+|---|---|
+| **Não-bloqueante** | Loop principal termina em ~10 ms, deixando CPU disponível para expansões futuras |
+| **Modular** | Cada estado é auto-contido, testável e substituível de forma independente |
+| **Escalável** | Novos estados ou transições são adicionados sem refatorar a lógica existente |
+ 
+### Diagrama de Estados (FSM)
+ 
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> VERDE : boot + blink_bootstrap()
+ 
+    VERDE    --> AMARELO  : decorrido ≥ 3000 ms
+    AMARELO  --> VERMELHO : decorrido ≥ 1000 ms
+    VERMELHO --> VERDE    : decorrido ≥ 3000 ms
+ 
+    note right of VERDE
+        GPIO 26 = HIGH
+        Demais = LOW
+    end note
+    note right of AMARELO
+        GPIO 25 = HIGH
+        Demais = LOW
+    end note
+    note right of VERMELHO
+        GPIO 33 = HIGH
+        Demais = LOW
+    end note
 ```
-[VERDE: 3s] → [AMARELO: 1s] → [VERMELHO: 3s] → (repete)
+ 
+### Fluxo de Dados (Signal Path)
+ 
 ```
-
-### Temporização Não-Bloqueante com `time.ticks_ms()`
-
+ESP32 GPIO (3.3 V HIGH)
+    │
+    ▼
+Anodo do LED (A)       ← tensão de entrada: 3.3 V
+    │
+   LED                 ← queda de tensão: ~2.1 V (Vf)
+    │
+Catodo do LED (C)      ← tensão residual: ~1.2 V
+    │
+Resistor 220 Ω         ← limita corrente: I = (3.3 - 2.1) / 220 ≈ 5.5 mA
+    │
+GND (0 V)              ← referência do circuito
+```
+ 
+> O resistor protege o pino GPIO e o LED. Sem ele, a corrente seria limitada apenas pela resistência interna do ESP32 (~50 Ω), resultando em ~60 mA — acima do limite seguro de 12 mA/pino.
+ 
+### Temporização Não-Bloqueante
+ 
 ```python
-# Em vez de: time.sleep(3000) ❌ (bloqueia a CPU)
-# Usei: 
+# Comparação de abordagens:
+ 
+# ❌ Bloqueante — impede qualquer processamento paralelo
+time.sleep(3)
+ 
+# ✅ Não-bloqueante — CPU livre entre verificações
 agora     = time.ticks_ms()
 decorrido = time.ticks_diff(agora, ultimo_tick)
 if decorrido >= DURACAO_MS[estado_atual]:
-    # muda de estado
+    # transição de estado
 ```
-
-**Por que `ticks_diff()`?**
-- Lida com overflow do contador de 32 bits (após ~49 dias de execução)
-- Permite múltiplos temporizadores independentes rodando simultaneamente
-- Mantém o loop principal responsivo (~10ms por iteração)
-
-### Interação entre Componentes
-- **GPIO Output**: ESP32 envia sinal HIGH/LOW para os pinos 26, 25, 33
-- **LEDs + Resistores**: Configuração sink (LED anodo → resistor → GND)
-- **Serial Monitor**: `print()` registra transições para debug e validação do CI
-
+ 
+`ticks_diff()` trata automaticamente o overflow do contador de 32 bits (que ocorreria após ~49,7 dias de execução contínua), garantindo precisão temporal a longo prazo.
+ 
+### Watchdog Timer (WDT)
+ 
+```python
+wdt = WDT(timeout=8000)   # reinicializa ESP32 se loop travar por > 8 s
+# ...
+while True:
+    wdt.feed()             # alimentado a cada ~10 ms em operação normal
+```
+ 
+O WDT é a última linha de defesa contra deadlocks em ambiente de produção. O timeout de 8 s foi dimensionado com margem de 2,6× sobre o estado mais longo (VERDE = 3 s).
+ 
+[⬆️ Voltar ao sumário](#-sumário)
+ 
 ---
-
-[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-sum%C3%A1rio)
-## 3️⃣ Componentes Utilizados na Simulação   
-
-| Componente | Quantidade | Função |
-|---|---|---|
-| ESP32 DevKit C v4 | 1 | Microcontrolador principal, executa o firmware MicroPython |
-| LED Verde (wokwi-led) | 1 | Sinalização de passagem liberada (GPIO 26) |
-| LED Amarelo (wokwi-led) | 1 | Sinalização de atenção (GPIO 25) |
-| LED Vermelho (wokwi-led) | 1 | Sinalização de parada obrigatória (GPIO 33) |
-| Resistor 220Ω (wokwi-resistor) | 3 | Limitação de corrente dos LEDs |
-
-Todos os componentes foram definidos e conectados no arquivo `diagram.json`, com fios coloridos identificando cada trilha do circuito.
-
+ 
+## 3️⃣ Componentes Utilizados na Simulação
+ 
+| Componente | ID | Qtd | Pino GPIO | Função |
+|---|---|---|---|---|
+| ESP32 DevKit C v4 | `esp` | 1 | — | Microcontrolador; executa o firmware MicroPython |
+| LED Verde | `led_verde` | 1 | GPIO 26 | Sinalização: passagem liberada |
+| LED Amarelo | `led_amarelo` | 1 | GPIO 25 | Sinalização: atenção |
+| LED Vermelho | `led_vermelho` | 1 | GPIO 33 | Sinalização: parada obrigatória |
+| Resistor 220 Ω | `r1`, `r2`, `r3` | 3 | — | Limitação de corrente (protege GPIO e LED) |
+ 
+**Critério de seleção dos pinos GPIO:**
+ 
+- **GPIO 26** — pino de propósito geral sem conflito com funções de boot ou UART
+- **GPIO 25** — DAC1, operado aqui exclusivamente como saída digital
+- **GPIO 33** — RTC GPIO, compatível com saída digital; não afeta inicialização
+- **GPIO 2**  — LED built-in do DevKit C v4, usado apenas durante o bootstrap
+Todos os componentes são definidos e conectados no `diagram.json`, com fios coloridos por função: **verde** (sinal VERDE), **dourado** (sinal AMARELO), **vermelho** (sinal VERMELHO) e **preto** (GND).
+ 
+[⬆️ Voltar ao sumário](#-sumário)
+ 
 ---
-
-[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-sum%C3%A1rio)
-## 4️⃣ Decisões Técnicas Relevantes 
-
+ 
+## 4️⃣ Decisões Técnicas Relevantes
+ 
 ### ✅ FSM em vez de sequência linear com delays
-**Problema**: `time.sleep()` bloqueia a CPU, impedindo leitura de sensores ou resposta a eventos externos.  
-**Solução**: Máquina de estados com `time.ticks_ms()` permite multitarefa cooperativa.  
-**Trade-off**: Código ligeiramente mais complexo, mas preparado para produção.
-
+ 
+**Problema:** `time.sleep()` bloqueia a CPU durante toda a duração do estado (até 3 s), tornando impossível reagir a eventos externos (botão, sensor, interrupção).  
+**Solução:** FSM com `ticks_ms()` + `ticks_diff()` — a CPU é liberada a cada 10 ms.  
+**Trade-off:** Código ligeiramente mais complexo, mas pronto para produção e expansão.
+ 
 ### ✅ Função auxiliar `apagar_todos()`
-Centraliza o desligamento dos LEDs, garantindo que nunca haja dois acesos simultaneamente (segurança em semáforos reais).
-
-### ✅ Pinos GPIO 26, 25, 33
-Pinos de uso geral sem conflito com funções reservadas (boot, UART), garantindo compatibilidade com Wokwi e hardware real.
-
-### ✅ Resistores de 220Ω
-Cálculo: R = (3.3V - 2.1V) / 0.005A = 240Ω → 220Ω (valor comercial). Protege LEDs e pinos GPIO.
-
+ 
+Centraliza o desligamento atômico dos LEDs antes de cada transição. Elimina a possibilidade de dois LEDs acesos simultaneamente, que em um semáforo real significaria sinal contraditório e risco de segurança.
+ 
+### ✅ Dicionário de despacho (`LEDS: dict`)
+ 
+Em vez de `if estado == VERDE: led_verde.on() elif...`, o dicionário mapeia diretamente `estado → pino`. Resultado: `O(1)` de acesso, código extensível a novos estados sem alterar a lógica de transição.
+ 
+### ✅ Watchdog Timer (WDT)
+ 
+Proteção contra deadlocks em hardware real. Em simulação, demonstra conhecimento de práticas de firmware para produção. Timeout de 8 s com margem 2,6× sobre o estado mais longo (3 s).
+ 
+### ✅ Resistores de 220 Ω
+ 
+Cálculo: `R = (Vcc - Vf) / I = (3,3 V - 2,1 V) / 0,006 A = 200 Ω`. Valor comercial mais próximo acima: **220 Ω**. Protege o pino GPIO (limite de 12 mA) e garante vida útil dos LEDs.
+ 
 ### ✅ Saída serial como evidência de teste
-`print("Teste")` na inicialização permite validação automática pelo GitHub Actions via `--expect-text`.
-
-### ✅ Ambiente de execução — Opção A (Python local)
-Desenvolvido em Windows institucional sem Docker. `pip install -r requirements.txt` foi suficiente para o escopo do projeto.
-
+ 
+`print("Teste")` na inicialização é a string capturada pelo argumento `--expect-text` do Wokwi CLI no GitHub Actions. Garante que o CI valida não apenas a ausência de erros, mas a execução correta do código até o ponto de inicialização.
+ 
+### ✅ Ambiente: Opção A (Python local)
+ 
+Desenvolvido em Windows institucional sem Docker disponível. `pip install -r requirements.txt` foi suficiente para o escopo. O Dockerfile mantido no repositório garante reprodutibilidade em outros ambientes.
+ 
+[⬆️ Voltar ao sumário](#-sumário)
+ 
 ---
-[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-sum%C3%A1rio)
+ 
 ## 5️⃣ Estratégia de Branches e Versionamento
-
-Este repositório segue uma **estratégia de branches organizada** para separar desenvolvimento de entrega:
-
-### Branch `main` (produção)
-- Contém a **versão final e otimizada** do projeto
-- Implementação com **Máquina de Estados Não-Bloqueante**
-- Código revisado e testado
-- Pipeline CI/CD passando com sucesso ✅
-
-### Branch `feat/actions-build` (desenvolvimento inicial)
-- Contém a **implementação inicial** com `time.sleep()` bloqueante
-- Versão funcional mas não otimizada
-- Mantida para fins de **histórico e comparação**
-- Demonstra a evolução do projeto
-
-### Branch `develop` (integração - opcional)
-- Pode ser usada para testar novas funcionalidades antes do merge para `main`
-- Fluxo: `develop` → Pull Request → `main`
-
-> 📌 **Por que manter branches separadas?**  
-> Isso demonstra domínio de Git, permite rollback seguro e facilita a colaboração em equipe — práticas essenciais em desenvolvimento profissional de software e firmware.
-
+ 
+```
+main ◄──────────── feat/actions-build ◄──── improve/senior-upgrade
+                          │
+                          ▼
+                       develop
+```
+ 
+| Branch | Papel | Conteúdo |
+|---|---|---|
+| `feat/actions-build` | **Release / Produção** | Versão final, otimizada e com CI verde |
+| `develop` | Integração | Novas funcionalidades antes do merge para release |
+| `improve/senior-upgrade` | Feature branch | Melhorias pontuais antes do PR para `feat/actions-build` |
+ 
+**Por que esta estrutura?**
+ 
+- **Rastreabilidade:** cada branch representa uma responsabilidade clara no ciclo de vida do software
+- **Rollback seguro:** possível reverter a versão anterior sem perder histórico
+- **Colaboração:** múltiplos desenvolvedores podem trabalhar em paralelo sem conflito
+**Convenção de commits adotada (Conventional Commits):**
+ 
+| Prefixo | Uso |
+|---|---|
+| `feat:` | Nova funcionalidade |
+| `fix:` | Correção de bug |
+| `docs:` | Alteração de documentação |
+| `chore:` | Configuração, CI, dependências |
+| `refactor:` | Refatoração sem mudança de comportamento |
+| `ci:` | Ajustes no pipeline |
+ 
+[⬆️ Voltar ao sumário](#-sumário)
+ 
 ---
-[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-sum%C3%A1rio)
-## 6️⃣ Resultados Obtidos  
-
-O sistema opera corretamente na simulação do Wokwi, executando o ciclo completo do semáforo de forma contínua:
-
-- ✅ LED verde acende por 3 segundos com mensagem `VERDE - Passagem liberada`
-- ✅ LED amarelo acende por 1 segundo com mensagem `AMARELO - Atencao`
-- ✅ LED vermelho acende por 3 segundos com mensagem `VERMELHO - Pare`
-- ✅ Apenas um LED permanece aceso por vez em todos os estados
-- ✅ A saída serial exibe `Teste` na inicialização, atendendo ao critério de validação do GitHub Actions
-- ✅ Pipeline de CI executou sem falhas (1m 15s)
-- ✅ Sem warnings de `unknown-part-type` no diagram.json
-
+ 
+## 6️⃣ Resultados Obtidos
+ 
+### Funcionalidade
+ 
+| Comportamento esperado | Status |
+|---|---|
+| LED verde acende por 3 s com log `VERDE \| Passagem liberada` | ✅ |
+| LED amarelo acende por 1 s com log `AMARELO \| Atencao` | ✅ |
+| LED vermelho acende por 3 s com log `VERMELHO \| Pare` | ✅ |
+| Apenas um LED permanece aceso por vez (exclusão mútua) | ✅ |
+| String `Teste` impressa na inicialização (validação CI) | ✅ |
+| Pipeline GitHub Actions executado sem falhas (green check) | ✅ |
+| Sem warnings de `unknown-part-type` no `diagram.json` | ✅ |
+ 
 ### Métricas de Desempenho
-- **Tempo de boot**: ~2 segundos (incluindo blink de inicialização)
-- **Consumo de CPU**: < 5% (loop de 10ms não-bloqueante)
-- **Precisão temporal**: ±10ms (limitado pelo sleep_ms)
-- **Tamanho do código**: ~100 linhas bem estruturadas
-
+ 
+| Métrica | Valor medido |
+|---|---|
+| Tempo de boot (até primeiro estado ativo) | ~2,0 s |
+| Tempo de execução do CI/CD completo | ~1 min 15 s |
+| Granularidade do loop principal | 10 ms |
+| Precisão temporal dos estados | ±10 ms (±0,33 % para 3 s) |
+| Uso estimado de CPU | < 5 % |
+| Tamanho do firmware (`main.py`) | ~120 linhas estruturadas |
+| Pico de corrente por pino GPIO | ~5,5 mA (220 Ω, Vf = 2,1 V) |
+ 
+### Pipeline CI/CD — Fluxo de Jobs
+ 
+```
+push / pull_request
+       │
+       ▼
+  🔍 lint ──────────────────────────────── valida sintaxe Python + JSON
+       │ (pass)
+       ▼
+  🔨 build ─────────────────────────────── compila fs.bin via Docker + upload artifact
+       │ (pass)
+       ▼
+  🚦 simulate ──────────────────────────── executa Wokwi, valida "Teste" na serial
+```
+ 
+[⬆️ Voltar ao sumário](#-sumário)
+ 
 ---
-[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-sum%C3%A1rio)
-## 7️⃣ Limitações e Melhorias Futuras  
-
+ 
+## 7️⃣ Limitações e Melhorias Futuras
+ 
 ### Limitações Atuais
-1. **Precisão temporal**: Loop de 10ms pode causar variação de ±1% no tempo dos estados
-2. **Sem tratamento de falhas**: Não há watchdog timer para recuperação de travamentos
-3. **Hardcoded**: Tempos dos estados fixos no código (poderiam ser configuráveis via EEPROM ou MQTT)
-4. **Sem persistência**: Configurações se perdem ao reiniciar o ESP32
-
-### Melhorias Propostas
-1. **Botão de pedestre**: GPIO input para solicitação de travessia prioritária
-2. **Sensor de luminosidade**: Ajustar brilho dos LEDs ou tempos conforme horário do dia
-3. **Comunicação IoT**: MQTT para monitoramento remoto e configuração OTA (Over-The-Air)
-4. **Deep Sleep**: Otimizar consumo energético em períodos de baixo tráfego
-5. **Sincronização de semáforos**: RTC + protocolo para coordenar múltiplos cruzamentos
-6. **Display countdown**: Adicionar display 7 segmentos para mostrar tempo restante
-
+ 
+| # | Limitação | Impacto |
+|---|---|---|
+| 1 | Precisão de ±10 ms no loop de 10 ms | Variação de ±0,33 % — aceitável para semáforo, não para controle de alta precisão |
+| 2 | Tempos de estado hardcoded no código | Requer novo deploy para qualquer ajuste operacional |
+| 3 | Sem tratamento de exceção no loop principal | Uma exceção não capturada encerra o firmware (o WDT mitiga, reiniciando o ESP32) |
+| 4 | Sem persistência de configurações | Parâmetros perdidos ao reiniciar; sem EEPROM ou NVS configurados |
+| 5 | Simulação Wokwi ≠ hardware real | Latências de GPIO e comportamento de corrente diferem em circuito físico |
+ 
+### Roadmap de Melhorias
+ 
+**Curto prazo (firmware):**
+- **Botão de pedestre** — GPIO input com interrupção (`Pin.IRQ_FALLING`) para inserir estado de travessia prioritária
+- **Display countdown** — Display 7 segmentos mostrando o tempo restante do estado atual
+**Médio prazo (conectividade):**
+- **MQTT** — publicar transições de estado em broker; habilitar configuração de temporização via mensagem
+- **OTA (Over-The-Air)** — atualização de firmware sem cabo via `webrepl` ou `urequests`
+**Longo prazo (sistema):**
+- **RTC + NTP** — sincronização de tempo real para modo noturno (pisca amarelo das 22h às 6h)
+- **Sincronização multi-semáforo** — protocolo ESP-NOW para coordenar cruzamentos adjacentes
+- **Deep Sleep** — reduzir consumo energético em períodos de baixo tráfego
 ### Lições Aprendidas
-- **Máquinas de estado** são essenciais para firmware responsivo e escalável
-- **`time.ticks_ms()` + `ticks_diff()`** é o padrão-ouro para temporização em MicroPython
-- **CI/CD para embarcados** (Wokwi + GitHub Actions) acelera desenvolvimento e previne regressões
-- **Versionamento semântico** e branches organizadas facilitam manutenção e colaboração
-- **Simulação antes do hardware** economiza tempo e componentes físicos
-
-
----
-
+ 
+- **FSM é o ponto de partida correto** para qualquer firmware com múltiplos estados e temporização — código linear com `sleep()` não escala
+- **`ticks_diff()`** é obrigatório para temporização segura em MicroPython; `ticks_ms()` puro falha após ~49 dias (overflow de 32 bits)
+- **WDT desde o início** — adicionar watchdog timer como hábito, não como correção tardia
+- **CI/CD para embarcados** acelera o ciclo de desenvolvimento: cada push valida o firmware automaticamente, eliminando regressões silenciosas
+- **Simular antes do hardware** economiza componentes, tempo e iterações — especialmente em projetos com resistores dimensionados incorretamente
+[⬆️ Voltar ao sumário](#-sumário)
