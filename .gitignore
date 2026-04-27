@@ -1,6 +1,47 @@
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
+*.pyd
+*.so
+.Python
+
+# Build / Artefatos gerados
+fs.bin
+*.bin
+*.elf
+*.map
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+*.logs
+
+# Ambientes virtuais
 .env
+.venv
+venv/
+env/
+
+# Editores e IDEs
 .DS_Store
-*.logg
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+Thumbs.db
+
+# Segredos (nunca versionar chaves de API)
+.env.local
+.env.*.local
+secrets.*
+*.key
+
+# Wokwi / ESP-IDF
+sdkconfig
+sdkconfig.old
+dependencies.lock
+managed_components/
