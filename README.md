@@ -299,6 +299,9 @@ Preencha todas as seções abaixo de forma **clara, objetiva e técnica**.
 ---
  
 ## 1️⃣ Visão Geral da Solução
+<img width="1048" height="1159" alt="image" src="https://github.com/user-attachments/assets/24f7b692-1139-4fb9-8375-e32825fef75e" />
+
+
  
 **Objetivo:** Implementar um semáforo de trânsito autônomo e simulado, utilizando ESP32 e três LEDs (verde, amarelo e vermelho), controlados por firmware MicroPython com lógica de temporização não-bloqueante.
  
