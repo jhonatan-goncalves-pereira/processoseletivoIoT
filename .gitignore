@@ -15,6 +15,11 @@ build/
 dist/
 *.egg-info/
 
+# Exceção: binários de firmware rastreados intencionalmente no repositório
+# Necessários para a simulação Wokwi funcionar via flasher_args.json
+!binaries/
+!binaries/*.bin
+
 # Logs
 *.log
 *.logs
