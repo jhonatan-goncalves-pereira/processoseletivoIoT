@@ -1,4 +1,4 @@
-name: ESP32 Filesystem Build
+name: IoT Semaphore – CI/CD Pipeline
 
 on:
   push:
@@ -6,30 +6,107 @@ on:
       - main
       - feat/actions-build
       - develop
+      - "feat/aprimorar-diagrama-e-arquitetura"
   pull_request:
     branches:
       - main
+      - feat/actions-build
+
+# cancela runs anteriores do mesmo branch ao receber novo push
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build_filesystem:
+  # JOB 1 analise estática valida sintaxe Python sem dependências externas
+  lint:
+    name: "🔍 Syntax Check"
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Build Docker image
-      run: docker build -t esp32-builder -f Dockerfile .
+      - name: Validate MicroPython syntax (AST parse)
+        run: |
+          python3 - <<'EOF'
+          import ast, sys
 
-    - name: Run container and generate fs.bin
-      run: |
-        docker run --name esp32-fs-builder esp32-builder /bin/bash
-        
-        docker cp esp32-fs-builder:/fs.bin .
+          with open("src/main.py", "r") as f:
+              source = f.read()
 
-    - name: Test with Wokwi
-      uses: wokwi/wokwi-ci-action@v1
-      with:
-        token: ${{ secrets.WOKWI_CLI_TOKEN }}
-        path: /
-        expect_text: 'Teste'
+          try:
+              ast.parse(source)
+              print(" src/main.py – sintaxe válida")
+          except SyntaxError as e:
+              print(f" Erro de sintaxe em src/main.py: {e}")
+              sys.exit(1)
+          EOF
+
+      - name: Validate diagram.json structure
+        run: |
+          python3 - <<'EOF'
+          import json, sys
+
+          with open("diagram.json", "r") as f:
+              diagram = json.load(f)
+
+          required = {"version", "author", "parts", "connections"}
+          missing  = required - diagram.keys()
+
+          if missing:
+              print(f" diagram.json faltando campos: {missing}")
+              sys.exit(1)
+
+          print(f" diagram.json – {len(diagram['parts'])} componentes, "
+                f"{len(diagram['connections'])} conexões")
+          EOF
+
+  # JOB 2 Build: compila o filesystem com MicroPython via Docker
+  build:
+    name: " Build Filesystem"
+    runs-on: ubuntu-latest
+    needs: lint   # só executa se lint passar
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t esp32-builder -f Dockerfile .
+
+      - name: Run container and extract fs.bin
+        run: |
+          docker run --name esp32-fs-builder esp32-builder /bin/bash
+          docker cp esp32-fs-builder:/fs.bin .
+
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: micropython-fs-${{ github.sha }}
+          path: fs.bin
+          retention-days: 7
+
+  # JOB 3 — Simulate: executa a simulação Wokwi e valida saída serial
+  simulate:
+    name: "🚦 Wokwi Simulation"
+    runs-on: ubuntu-latest
+    needs: build   # só executa se o build passar
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download firmware artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: micropython-fs-${{ github.sha }}
+
+      - name: Run Wokwi simulation
+        uses: wokwi/wokwi-ci-action@v1
+        with:
+          token: ${{ secrets.WOKWI_CLI_TOKEN }}
+          path: /
+          timeout: 10000
+          diagram_file: diagram.json
+          expect_text: "Teste"
