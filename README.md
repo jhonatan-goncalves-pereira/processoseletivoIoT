@@ -282,14 +282,14 @@ Preencha todas as seções abaixo de forma **clara, objetiva e técnica**.
 
 
 ## 📑 Sumário
-- [👤 Identificação](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-identificação-do-candidato)
-- [1️⃣ Visão Geral](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#1️⃣-visão-geral-da-solução)
-- [2️⃣ Arquitetura](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#2️⃣-arquitetura-do-sistema-embarcado)
-- [3️⃣ Componentes](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#3️⃣-componentes-utilizados-na-simulação)
-- [4️⃣ Decisões Técnicas](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#4️⃣-decisões-técnicas-relevantes)
-- [5️⃣ Versionamento](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#5️⃣-estratégia-de-branches-e-versionamento)
-- [6️⃣ Resultados](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#6️⃣-resultados-obtidos)
-- [7️⃣ Melhorias](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#7️⃣-limitações-e-melhorias-futuras)
+- [👤 Identificação](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-identifica%C3%A7%C3%A3o-do-candidato)
+- [1️⃣ Visão Geral](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#1%EF%B8%8F%E2%83%A3-vis%C3%A3o-geral-da-solu%C3%A7%C3%A3o)
+- [2️⃣ Arquitetura](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#2%EF%B8%8F%E2%83%A3-arquitetura-do-sistema-embarcado)
+- [3️⃣ Componentes](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#3%EF%B8%8F%E2%83%A3-componentes-utilizados-na-simula%C3%A7%C3%A3o)
+- [4️⃣ Decisões Técnicas](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#4%EF%B8%8F%E2%83%A3-decis%C3%B5es-t%C3%A9cnicas-relevantes)
+- [5️⃣ Versionamento](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#5%EF%B8%8F%E2%83%A3-estrat%C3%A9gia-de-branches-e-versionamento)
+- [6️⃣ Resultados](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#6%EF%B8%8F%E2%83%A3-resultados-obtidos)
+- [7️⃣ Melhorias](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#7%EF%B8%8F%E2%83%A3-limita%C3%A7%C3%B5es-e-melhorias-futuras)
 
 
 ### 👤 Identificação do Candidato
@@ -311,7 +311,7 @@ O sistema embarcado controla o ciclo completo de um semáforo de forma autônoma
 Não há interação direta do usuário — o ciclo ocorre de forma contínua e automática, sendo monitorável via Serial Monitor.
 
 ---
-[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-sum%C3%A1rio)
 ## 2️⃣ Arquitetura do Sistema Embarcado 
 
 ### Padrão de Projeto: Máquina de Estados Finita (FSM)
@@ -349,7 +349,7 @@ if decorrido >= DURACAO_MS[estado_atual]:
 
 ---
 
-[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-sum%C3%A1rio)
 ## 3️⃣ Componentes Utilizados na Simulação   
 
 | Componente | Quantidade | Função |
@@ -364,7 +364,7 @@ Todos os componentes foram definidos e conectados no arquivo `diagram.json`, com
 
 ---
 
-[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-sum%C3%A1rio)
 ## 4️⃣ Decisões Técnicas Relevantes 
 
 ### ✅ FSM em vez de sequência linear com delays
@@ -388,7 +388,7 @@ Cálculo: R = (3.3V - 2.1V) / 0.005A = 240Ω → 220Ω (valor comercial). Proteg
 Desenvolvido em Windows institucional sem Docker. `pip install -r requirements.txt` foi suficiente para o escopo do projeto.
 
 ---
-[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-sum%C3%A1rio)
 ## 5️⃣ Estratégia de Branches e Versionamento
 
 Este repositório segue uma **estratégia de branches organizada** para separar desenvolvimento de entrega:
@@ -413,7 +413,7 @@ Este repositório segue uma **estratégia de branches organizada** para separar 
 > Isso demonstra domínio de Git, permite rollback seguro e facilita a colaboração em equipe — práticas essenciais em desenvolvimento profissional de software e firmware.
 
 ---
-[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-sum%C3%A1rio)
 ## 6️⃣ Resultados Obtidos  
 
 O sistema opera corretamente na simulação do Wokwi, executando o ciclo completo do semáforo de forma contínua:
@@ -433,7 +433,7 @@ O sistema opera corretamente na simulação do Wokwi, executando o ciclo complet
 - **Tamanho do código**: ~100 linhas bem estruturadas
 
 ---
-[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT/tree/docs#-sum%C3%A1rio)
+[⬆️ Voltar ao sumário](https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT#-sum%C3%A1rio)
 ## 7️⃣ Limitações e Melhorias Futuras  
 
 ### Limitações Atuais
