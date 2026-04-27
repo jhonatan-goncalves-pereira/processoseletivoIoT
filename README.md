@@ -293,11 +293,8 @@ Preencha todas as seções abaixo de forma **clara, objetiva e técnica**.
  
 ### 👤 Identificação do Candidato
  
-| Campo | Valor |
-|---|---|
-| **Nome completo** | Jhonatan Gonçalves Pereira |
-| **GitHub** | https://github.com/jhonatan-goncalves-pereira |
-| **Repositório** | https://github.com/jhonatan-goncalves-pereira/processoseletivoIoT |
+- **Nome completo**  Jhonatan Gonçalves Pereira 
+- **GitHub**  https://github.com/jhonatan-goncalves-pereira 
  
 ---
  
@@ -463,25 +460,60 @@ Desenvolvido em Windows institucional sem Docker disponível. `pip install -r re
  
 ## 5️⃣ Estratégia de Branches e Versionamento
  
+### Topologia completa do repositório
+ 
 ```
-main ◄──────────── feat/actions-build ◄──── improve/senior-upgrade
-                          │
-                          ▼
-                       develop
+                    ┌─────────────────────────────────────┐
+                    │              main (default)          │ ← entrega final
+                    └──────────────────┬──────────────────┘
+                                       │ merge via PR
+                    ┌──────────────────▼──────────────────┐
+                    │         feat/actions-build           │ ← release / produção
+                    └──────┬───────────┬──────────────────┘
+                           │           │
+          ┌────────────────▼──┐   ┌────▼────────────────────────┐
+          │      develop      │   │  feat/aprimorar-diagrama-e-  │
+          │  (integração)     │   │       arquitetura            │ ← PR #4 merged
+          └───────────────────┘   └─────────────────────────────┘
+ 
+          ┌─────────────────────────────────────────────────────┐
+          │              fix/audit-gaps                         │
+          │  (melhoria futura – 3 commits, NÃO mergeada)        │ ← ver abaixo
+          └─────────────────────────────────────────────────────┘
 ```
  
-| Branch | Papel | Conteúdo |
+### Inventário de branches
+ 
+| Branch | Status | Papel | Decisão |
+|---|---|---|---|
+| `main` | ✅ Default | Entrega oficial do processo seletivo | Branch avaliada |
+| `feat/actions-build` | ✅ Merged | Release / produção — CI verde, versão final | Base do projeto |
+| `feat/aprimorar-diagrama-e-arquitetura` | ✅ Merged (PR #4) | FSM, WDT, pipeline 3 jobs, README técnico | Integrado à main |
+| `develop` | ✅ Ativa | Integração — testa funcionalidades antes do merge | Fluxo contínuo |
+| `docs` | ✅ Merged (PR #3) | Documentação técnica: sumário, seções, relatório | Integrado |
+| `fix/audit-gaps` | 🔶 Aberta | Melhorias de engenharia identificadas em exploração | Não mergeada — Melhorias Futuras |
+ 
+### Branch `fix/audit-gaps` — decisão intencional de não merge
+ 
+A branch `fix/audit-gaps` contém quatro melhorias identificadas ao logo do desenvolvimento do desafio técnico pós-entrega:
+ 
+| Commit | Arquivo | Melhoria |
 |---|---|---|
-| `feat/actions-build` | **Release / Produção** | Versão final, otimizada e com CI verde |
-| `develop` | Integração | Novas funcionalidades antes do merge para release |
-| `improve/senior-upgrade` | Feature branch | Melhorias pontuais antes do PR para `feat/actions-build` |
+| `chore:` | `.gitignore` | Negation rule `!binaries/` para resolver conflito semântico com `*.bin` |
+| `ci:` | `ci.yml` | Wildcards `feat/**` e `improve/**` no trigger de push; emoji `🔨` restaurado |
+| `docs(firmware):` | `src/main.py` | Campo `Versão: 2.0.0` adicionado ao docstring do módulo |
+| `docs:` | `CHANGELOG.md` | Histórico semântico de releases com formato Keep a Changelog |
  
-**Por que esta estrutura?**
+**Por que não foi mergeada para `main`?**
  
-- **Rastreabilidade:** cada branch representa uma responsabilidade clara no ciclo de vida do software
-- **Rollback seguro:** possível reverter a versão anterior sem perder histórico
-- **Colaboração:** múltiplos desenvolvedores podem trabalhar em paralelo sem conflito
-**Convenção de commits adotada (Conventional Commits):**
+A decisão segue o princípio de **não introduzir mudanças em produção que não sejam requisito da entrega atual**. Os quatro pontos acima são refinamentos de qualidade que não afetam o comportamento funcional do sistema — o firmware executa corretamente, o CI passa, e o README está completo. Forçar o merge implicaria:
+ 
+1. Criar um PR extra sem demanda funcional clara no ciclo de avaliação
+2. Risco de introduzir conflito de merge desnecessário em `main` durante o período de submissão
+3. Violação do princípio de que cada PR deve ter propósito único e bem definido
+A branch está documentada, os commits são semânticos e o histórico é rastreável — o que demonstra **maturidade de engenharia**: saber quando *não* mergear é tão importante quanto saber quando mergear.
+ 
+### Convenção de commits adotada (Conventional Commits)
  
 | Prefixo | Uso |
 |---|---|
