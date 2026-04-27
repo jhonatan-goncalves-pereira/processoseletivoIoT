@@ -6,19 +6,18 @@ on:
       - main
       - feat/actions-build
       - develop
-      - "feat/aprimorar-diagrama-e-arquitetura"
+      - "fix/audit-gaps"
   pull_request:
     branches:
       - main
       - feat/actions-build
 
-# cancela runs anteriores do mesmo branch ao receber novo push
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  # JOB 1 analise estática valida sintaxe Python sem dependências externas
+  # JOB 1 — Análise estática: valida sintaxe Python sem dependências externas
   lint:
     name: "🔍 Syntax Check"
     runs-on: ubuntu-latest
@@ -37,9 +36,9 @@ jobs:
 
           try:
               ast.parse(source)
-              print(" src/main.py – sintaxe válida")
+              print("✅ src/main.py – sintaxe válida")
           except SyntaxError as e:
-              print(f" Erro de sintaxe em src/main.py: {e}")
+              print(f"❌ Erro de sintaxe em src/main.py: {e}")
               sys.exit(1)
           EOF
 
@@ -55,16 +54,15 @@ jobs:
           missing  = required - diagram.keys()
 
           if missing:
-              print(f" diagram.json faltando campos: {missing}")
+              print(f"❌ diagram.json faltando campos: {missing}")
               sys.exit(1)
 
-          print(f" diagram.json – {len(diagram['parts'])} componentes, "
+          print(f"✅ diagram.json – {len(diagram['parts'])} componentes, "
                 f"{len(diagram['connections'])} conexões")
           EOF
-
-  # JOB 2 Build: compila o filesystem com MicroPython via Docker
+  # JOB 2 — Build: compila o filesystem com MicroPython via Docker
   build:
-    name: " Build Filesystem"
+    name: "🔨 Build Filesystem"
     runs-on: ubuntu-latest
     needs: lint   # só executa se lint passar
 
