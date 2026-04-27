@@ -56,17 +56,14 @@
   "connections": [
     [ "esp:TX", "$serialMonitor:RX", "", [] ],
     [ "esp:RX", "$serialMonitor:TX", "", [] ],
-
-    [ "esp:26",       "led_verde:A",    "green",  ["h10", "v-80", "h130"] ],
-    [ "led_verde:C",  "r1:1",           "green",  ["h10"] ],
-    [ "r1:2",         "esp:GND.1",      "black",  ["h10", "v-160", "h-340"] ],
-
-    [ "esp:25",       "led_amarelo:A",  "gold",   ["h10", "v20",  "h130"] ],
-    [ "led_amarelo:C","r2:1",           "gold",   ["h10"] ],
-    [ "r2:2",         "esp:GND.1",      "black",  ["h10", "v-60",  "h-340"] ],
-
-    [ "esp:33",       "led_vermelho:A", "red",    ["h10", "v120", "h130"] ],
-    [ "led_vermelho:C","r3:1",          "red",    ["h10"] ],
-    [ "r3:2",         "esp:GND.1",      "black",  ["h10", "v40",  "h-340"] ]
+    [ "esp:26", "led_verde:A", "green", [ "h10", "v-80", "h130" ] ],
+    [ "led_verde:C", "r1:1", "green", [ "h10" ] ],
+    [ "r1:2", "esp:GND.1", "black", [ "h10", "v-160", "h-340" ] ],
+    [ "esp:25", "led_amarelo:A", "gold", [ "h10", "v20", "h130" ] ],
+    [ "led_amarelo:C", "r2:1", "gold", [ "h10" ] ],
+    [ "r2:2", "esp:GND.1", "black", [ "h10", "v-60", "h-340" ] ],
+    [ "esp:33", "led_vermelho:A", "red", [ "h10", "v120", "h130" ] ],
+    [ "led_vermelho:C", "r3:1", "red", [ "h10" ] ],
+    [ "r3:2", "esp:GND.1", "black", [ "h10", "v40", "h-340" ] ]
   ]
 }
